@@ -24,34 +24,50 @@ namespace TDDKata
         }
 
         [Test]
-        public void SumTwoNums()
+        [TestCase("1,2")]
+        [TestCase(@"1\n2")]
+        public void SumTwoNums(string argument)
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum("1,2");
+            int value = calc.Sum(argument);
             Assert.That(value, Is.EqualTo(3), "Wrong actual value");
         }
 
         [Test]
-        public void SumThreeNums()
+        [TestCase("1,2,3")]
+        [TestCase(@"1\n2\n3")]
+        [TestCase(@"1,2\n3")]
+        [TestCase(@"1\n2,3")]
+        public void SumThreeNums(string argument)
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum("1,2,3");
+            int value = calc.Sum(argument);
             Assert.That(value, Is.EqualTo(6), "Wrong actual value");
         }
 
         [Test]
-        public void SumFourNums()
+        [TestCase("1,2,3,4")]
+        [TestCase(@"1\n2\n3\n4")]
+        [TestCase(@"1,2\n3\n4")]
+        [TestCase(@"1\n2,3\n4")]
+        [TestCase(@"1\n2\n3,4")]
+        public void SumFourNums(string argument)
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum("1,2,3,4");
-            Assert.That(value, Is.EqualTo(-1), "Wrong actual value");
+            int value = calc.Sum(argument);
+            Assert.That(value, Is.EqualTo(10), "Wrong actual value");
         }
 
         [Test]
-        public void SumNegativeNums()
+        [TestCase("1,2,3,-4")]
+        [TestCase(@"1\n2\n3\n-4")]
+        [TestCase(@"1,2\n3\n-4")]
+        [TestCase(@"1\n2,3\n-4")]
+        [TestCase(@"1\n2\n3,-4")]
+        public void SumNegativeNums(string argument)
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum("1,2,-3");
+            int value = calc.Sum(argument);
             Assert.That(value, Is.EqualTo(-1), "Wrong actual value");
         }
 
@@ -72,10 +88,12 @@ namespace TDDKata
         }
 
         [Test]
-        public void SpaceAsManyArguments()
+        [TestCase("   ,   ")]
+        [TestCase(@"   \n   ")]
+        public void SpaceAsManyArguments(string argument)
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum("   ,   ");
+            int value = calc.Sum(argument);
             Assert.That(value, Is.EqualTo(-1), "Wrong actual value");
         }
 
