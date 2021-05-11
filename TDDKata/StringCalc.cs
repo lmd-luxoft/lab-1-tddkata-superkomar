@@ -8,7 +8,41 @@ namespace TDDKata
     {
         internal int Sum(string v)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(v) || string.IsNullOrWhiteSpace(v))
+            {
+                return 0;
+            }
+
+            var nums = v.Split(',');
+
+            if (nums.Length > 3)
+            {
+                return -1;
+            }
+
+            int result = 0;
+
+            foreach (string numStr in nums)
+            {
+                try
+                {
+                    var numInt = Convert.ToInt32(numStr);
+
+                    if (numInt < 0)
+                    {
+                        return -1;
+                    }
+
+                    result += numInt;
+
+                }
+                catch(Exception ex)
+                {
+                    return -1;
+                }
+            }
+
+            return result;
         }
     }
 }
