@@ -1,7 +1,5 @@
 ﻿// NUnit 3 tests
 // See documentation : https://github.com/nunit/docs/wiki/NUnit-Documentation
-using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace TDDKata
@@ -74,11 +72,19 @@ namespace TDDKata
         }
 
         [Test]
-        public void SpaceAsArguments()
+        public void SpaceAsManyArguments()
         {
             StringCalc calc = new StringCalc();
             int value = calc.Sum("   ,   ");
             Assert.That(value, Is.EqualTo(-1), "Wrong actual value");
+        }
+
+        [Test]
+        public void SpaceAsOneArgument()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum("     ");
+            Assert.That(value, Is.EqualTo(0), "Wrong actual value");
         }
     }
 }
