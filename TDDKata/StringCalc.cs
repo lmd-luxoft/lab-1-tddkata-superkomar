@@ -6,43 +6,39 @@ namespace TDDKata
 {
     internal class StringCalc
     {
-        internal int Sum(string v)
+        private readonly char[] delimiterChars = { ',', '\n' };
+
+        internal int Sum(string str)
         {
-            if (string.IsNullOrEmpty(v) || string.IsNullOrWhiteSpace(v))
+            try
             {
-                return 0;
-            }
+                int result = 0;
 
-            var nums = v.Split(',');
+                var stringSpaceFree = str.Replace(" ", "");
 
-            if (nums.Length > 3)
-            {
-                return -1;
-            }
+                if (string.IsNullOrEmpty(stringSpaceFree))
+                {
+                    return result;
+                }
 
-            int result = 0;
-
-            foreach (string numStr in nums)
-            {
-                try
+                foreach (string numStr in stringSpaceFree.Split(delimiterChars))
                 {
                     var numInt = Convert.ToInt32(numStr);
 
                     if (numInt < 0)
                     {
-                        return -1;
+                        throw new ArgumentException();
                     }
 
                     result += numInt;
+                }
 
-                }
-                catch(Exception ex)
-                {
-                    return -1;
-                }
+                return result;
             }
-
-            return result;
+            catch (Exception)
+            {
+                return -1;
+            }
         }
     }
 }
