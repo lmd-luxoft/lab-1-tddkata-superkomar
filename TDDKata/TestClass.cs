@@ -112,5 +112,29 @@ namespace TDDKata
             int value = calc.Sum("     ");
             Assert.That(value, Is.EqualTo(0), "Wrong actual value");
         }
+
+        [Test]
+        [TestCase("//;\n1;2;3")]
+        [TestCase("// \n1 2 3")]
+        [TestCase("//&\n1&2&3")]
+        [TestCase("//%$\n1%$2%$3")]
+        public void CustomNumSeparator_CorrectString(string argument)
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum(argument);
+            Assert.That(value, Is.EqualTo(6), "Wrong actual value");
+        }
+
+        [Test]
+        [TestCase("//;\n1.2.3")]
+        [TestCase("// \n1 2;3")]
+        [TestCase("//\n1,2\n3")]
+        [TestCase("//%$\n1$%2%&3")]
+        public void CustomNumSeparator_IncorrectString(string argument)
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum(argument);
+            Assert.That(value, Is.EqualTo(-1), "Wrong actual value");
+        }
     }
 }
